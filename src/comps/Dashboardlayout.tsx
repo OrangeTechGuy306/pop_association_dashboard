@@ -8,7 +8,7 @@ import { FaEye } from "react-icons/fa6";
 import { MdLogout } from "react-icons/md";
 import { BiSolidDashboard } from "react-icons/bi";
 import { FaUsersLine } from "react-icons/fa6";
-import { RiCalendarEventFill } from "react-icons/ri";
+// import { RiCalendarEventFill } from "react-icons/ri";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { VscServerEnvironment } from "react-icons/vsc";
 import { FaAward } from "react-icons/fa";
@@ -70,9 +70,9 @@ const DashboardLayout = ({children}  : {children: React.ReactNode}) => {
             <Link to={'/members'} className="px-5 py-2 rounded-xl flex items-center gap-2">
               <FaUsersLine /> <span>Members</span>
             </Link>
-            <Link to={'/events'} className="px-5 py-2 rounded-xl flex items-center gap-2"> 
+            {/* <Link to={'/events'} className="px-5 py-2 rounded-xl flex items-center gap-2"> 
                 <RiCalendarEventFill /> <span>Events</span> 
-            </Link>
+            </Link> */}
             <Link to={'/zones'} className="px-5 py-2 rounded-xl flex items-center gap-2"> 
                 <VscServerEnvironment /> <span>Zones</span> 
             </Link>

@@ -4,6 +4,7 @@ import { Avatar, Button, Input, Modal, Select, Table } from "antd";
 import { FaEye, FaUsers } from "react-icons/fa6";
 import axios from "axios";
 import { useEffect, useState } from "react";
+// eslint-disable-next-line
 import { memberProps } from "../member/membertype";
 // import useMemberHook from "./hooks/executiveshook";
 

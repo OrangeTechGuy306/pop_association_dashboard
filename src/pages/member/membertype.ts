@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
- interface memberProps {
+ export interface memberProps {
   key: number;
   fullname: string;
   passport: ReactNode;
