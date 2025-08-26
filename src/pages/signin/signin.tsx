@@ -16,17 +16,17 @@ const SiginPage = () => {
     // eslint-disable-next-line
     const signin = async(e: any)=>{
         e.preventDefault()
+        setLoading(true)
         const res = await authorizeAdmin(email, password)
         if(res?.status === true){
-            setLoading(true)
             toast.success(res.msg)
             setTimeout(()=>{
                 navigate("/")
             }, 3000)
-            setLoading(false)
         }else{
             toast.error(res?.msg)
         }
+        setLoading(false)
     }
 
     useEffect(()=>{

@@ -16,9 +16,10 @@ const useDashboardHook = () => {
 
     const [posts, setPost] = useState<postType[]>()
     const [zones, setZones] = useState<zoneType[]>([])
-
+    const [loading, setLoading] = useState(false)
 
     const newPost = async(post: string)=>{
+        setLoading(true)
         try {
             if(!post){
                 toast.error("Please enter a post")
@@ -37,11 +38,14 @@ const useDashboardHook = () => {
             // eslint-disable-next-line
         } catch (error: any) {
             toast.warning(error.message)
+        }finally{
+            setLoading(false)
         }
         
     }
 
     const newZone = async(zone: string)=>{
+        setLoading(true)
         try {
             if(!zone){
                 toast.error("Please enter a Zone")
@@ -60,11 +64,14 @@ const useDashboardHook = () => {
             // eslint-disable-next-line
         } catch (error: any) {
             toast.warning(error.message)
+        }finally{
+            setLoading(false)
         }
         
     }
 
     const getAllPosts = async()=>{
+        setLoading(true)
         try {
                 const {data} = await axios.get(`${host}/posts`,{
                     headers: {
@@ -80,10 +87,13 @@ const useDashboardHook = () => {
             // eslint-disable-next-line
         } catch (error: any) {
             toast.warning(error.message)
+        }finally{
+            setLoading(false)
         }
         
     }
     const getAllZones = async()=>{
+        setLoading(true)
         try {
                 const {data} = await axios.get(`${host}/zones`,{
                     headers: {
@@ -99,6 +109,8 @@ const useDashboardHook = () => {
             // eslint-disable-next-line
         } catch (error: any) {
             toast.warning(error.message)
+        }finally{
+            setLoading(false)
         }
         
     }
@@ -129,7 +141,7 @@ const useDashboardHook = () => {
         }
     }
 
-  return {newPost, getAllPosts, posts, newZone, getAllZones, zones, setZones, searchZones, searchPosts}
+  return {newPost, getAllPosts, posts, newZone, getAllZones, zones, setZones, searchZones, searchPosts, loading}
 }
 
 export default useDashboardHook

@@ -27,6 +27,8 @@ const useMemberHook = () => {
   const [leave, setLeave] = useState(0);
   const [dead, setDead] = useState(0);
   const [allMember, setAllMember] = useState(0);
+  const [loading, setLoading] = useState(false)
+  // const [isLoading, setIsLoading] = useState(false)
 
   // eslint-disable-next-line
   const createNewMember = async (
@@ -40,6 +42,7 @@ const useMemberHook = () => {
     post: string,
     bossName: string
   ) => {
+    setLoading(true)
     try {
       if (
         mobile.trim() === "" ||
@@ -64,7 +67,7 @@ const useMemberHook = () => {
         formData.append("post", post);
         formData.append("dob", dob);
         formData.append("bossName", bossName);
-
+        
         const { data } = await axios.post(`${host}/new/member`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -82,11 +85,14 @@ const useMemberHook = () => {
       // eslint-disable-next-line
     } catch (error: any) {
       toast.error(error.message);
+    }finally{
+      setLoading(false)
     }
   };
 
   const getAllMembers = async () => {
-    const { data } = await axios.get(`${host}/members`, {
+    setLoading(true)
+    const { data } = await axios.get(`${host}/members`, {       
       headers: {
         Authorization: `Bearer ${authID}`,
       },
@@ -96,9 +102,11 @@ const useMemberHook = () => {
     } else {
       setMembers([]);
     }
+    setLoading(false)
   };
 
   const fetchSingleMember = async (id: number) => {
+    setLoading(true)
     const { data } = await axios.get(`${host}/member/${id}`, {
       headers: {
         Authorization: `Bearer ${authID}`,
@@ -124,9 +132,11 @@ const useMemberHook = () => {
       return;
       // setMember_profile({})
     }
+    setLoading(false)
   };
 
   const updateMemberInfo = async () => {
+    setLoading(true)
     const { data } = await axios.put(
       `${host}/update/member/${userUpdateInfo?.pop_member_id}`,
       { ...userUpdateInfo },
@@ -141,10 +151,11 @@ const useMemberHook = () => {
     } else {
       toast.error(data.msg);
     }
+    setLoading(false)
   };
 
   const deleteMember = async (id: string | number) => {
-
+  setLoading(true)
     const { data } = await axios.delete(`${host}/member/delete/${id}`, {
       headers: {
         Authorization: `Bearer ${authID}`,
@@ -156,9 +167,11 @@ const useMemberHook = () => {
     } else {
       toast.error(data.msg);
     }
+    setLoading(false)
   };
 
   const TotalDead = async () => {
+    setLoading(true)
     const { data } = await axios.get(`${host}/dead/members`, {
       headers: {
         Authorization: `Bearer ${authID}`,
@@ -169,9 +182,11 @@ const useMemberHook = () => {
     } else {
       setDead(0);
     }
+    setLoading(false)
   };
 
   const TotalMembers = async () => {
+    setLoading(true)
     const { data } = await axios.get(`${host}/total/members`, {
       headers: {
         Authorization: `Bearer ${authID}`,
@@ -182,9 +197,11 @@ const useMemberHook = () => {
     } else {
       setAllMember(0);
     }
+    setLoading(false)
   };
 
   const TotalLeave = async () => {
+    setLoading(true)
     const { data } = await axios.get(`${host}/leave/members`, {
       headers: {
         Authorization: `Bearer ${authID}`,
@@ -195,9 +212,11 @@ const useMemberHook = () => {
     } else {
       setLeave(0);
     }
+    setLoading(false)
   };
 
   const TotalSuspended = async () => {
+
     const { data } = await axios.get(`${host}/suspended/members`, {
       headers: {
         Authorization: `Bearer ${authID}`,
@@ -211,6 +230,7 @@ const useMemberHook = () => {
   };
 
   const filterMemberInfo = async (filter: string) => {
+    setLoading(true)
     const { data } = await axios.get(
       `${host}/filter/members?filterType=${filter}`,
       {
@@ -224,9 +244,11 @@ const useMemberHook = () => {
     } else {
       return;
     }
+    setLoading(false)
   };
 
   const searchMemberInfo = async (search: string) => {
+    setLoading(true)
     const { data } = await axios.get(
       `${host}/search/members?search=${search}`,
       {
@@ -240,6 +262,7 @@ const useMemberHook = () => {
     } else {
       return;
     }
+    setLoading(false)
   };
 
   return {
@@ -263,6 +286,7 @@ const useMemberHook = () => {
     filter_member,
     searchMemberInfo,
     deleteMember,
+    loading
   };
 };
 
