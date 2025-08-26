@@ -11,6 +11,12 @@ import { Toaster } from "sonner";
 import { fileUrl } from "@/utils/host";
 import { BiTrash } from "react-icons/bi";
 
+
+interface MemberStatusProps{
+  label: string
+  value: string
+}
+
 const MemberPage = () => {
   
   const [open, setOpen] = useState(false);
@@ -140,7 +146,7 @@ const MemberPage = () => {
     },
   ];
 
-  const memberStatus = [
+  const memberStatus: MemberStatusProps[] = [
     {
       label: "Suspended",
       value: "Suspended",
@@ -588,6 +594,25 @@ const MemberPage = () => {
                           setUserUpdateInfo({
                             ...userUpdateInfo,
                             post: e,
+                          } as memberProps)
+                        }
+                      />
+                    </div>
+                    <div className="my-3">
+                      <label htmlFor="">Member Status</label> <br />
+                      <Select
+                        className="w-[100%]"
+                        placeholder={"Click to Filter By: Categories"}
+                        options={memberStatus?.map((status) => ({
+                          label: status.label,
+                          value: status.value,
+                        }))}
+                        defaultValue={userUpdateInfo?.status}
+                        // eslint-disable-next-line
+                        onChange={(e: any) =>
+                          setUserUpdateInfo({
+                            ...userUpdateInfo,
+                            status: e,
                           } as memberProps)
                         }
                       />
